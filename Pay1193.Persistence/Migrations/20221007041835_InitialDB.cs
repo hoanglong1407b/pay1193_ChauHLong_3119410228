@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
@@ -59,10 +59,12 @@ namespace Pay1193.Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NiNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DatePay = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    MonthPay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    MonthPay = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     TaxYearId = table.Column<int>(type: "int", nullable: false),
-                    TaxCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TaxCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HourlyRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     HourWorked = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ContractualHours = table.Column<decimal>(type: "decimal(18,2)", nullable: false),

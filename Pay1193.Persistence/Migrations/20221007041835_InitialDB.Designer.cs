@@ -131,20 +131,26 @@ namespace Pay1193.Persistence.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("FullName")
+                       .HasColumnType("nvarchar(100)");
+
                     b.Property<decimal>("HourWorked")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal>("HourlyRate")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("MonthPay")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("MonthPay")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("NetPayment")
                         .HasColumnType("money");
 
                     b.Property<decimal>("NiC")
                         .HasColumnType("money");
+
+                    b.Property<string>("NiNo")
+                       .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("OvertimeEarnings")
                         .HasColumnType("money");

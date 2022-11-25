@@ -80,7 +80,6 @@ namespace Pay1193.Persistence.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MiddleName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("NationalInsuranceNo")

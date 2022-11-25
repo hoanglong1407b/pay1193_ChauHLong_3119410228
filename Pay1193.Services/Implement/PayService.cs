@@ -1,4 +1,6 @@
-﻿using Pay1193.Entity;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Pay1193.Entity;
 using Pay1193.Persistence;
 using System;
 using System.Collections.Generic;
@@ -31,25 +33,28 @@ namespace Pay1193.Services.Implement
             return contractualEarnings;
         }
 
-        public Task CreateAsync(PaymentRecord paymentRecord)
+        public async Task CreateAsync(PaymentRecord paymentRecord)
         {
-            throw new NotImplementedException();
+            await _context.PaymentRecords.AddAsync(paymentRecord);
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<PaymentRecord> GetAll()
+        public IEnumerable<PaymentRecord> GetAll() => _context.PaymentRecords.OrderBy(p => p.EmployeeId);
+
+        public IEnumerable<SelectListItem> GetAllTaxYear()
         {
-            throw new NotImplementedException();
+            var allTaxYear = _context.TaxYears.Select(taxYears => new SelectListItem
+            {
+                Text = taxYears.YearOfTax,
+                Value = taxYears.Id.ToString()
+            });
+
+            return allTaxYear;
         }
 
-        public PaymentRecord GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public PaymentRecord GetById(int id) => _context.PaymentRecords.Where(pay => pay.Id == id).FirstOrDefault();
 
-        public TaxYear GetTaxYearById(int id)
-        {
-            throw new NotImplementedException();
-        }
+        public TaxYear GetTaxYearById(int id) => _context.TaxYears.Where(year => year.Id == id).FirstOrDefault();
 
         public decimal NetPay(decimal totalEarnings, decimal totalDeduction)
         {
@@ -83,5 +88,9 @@ namespace Pay1193.Services.Implement
         {
             return tax + nic + studentLoanRepayment + unionFees;
         }
+
+        public decimal TotalEarnings(decimal overtimeEarnings, decimal contractualEarnings)
+        => overtimeEarnings + contractualEarnings;
+
     }
 }
